@@ -16,9 +16,7 @@ public class Main {//
             System.out.println("1.- Crear personaje");
             System.out.println("2.- Ver personaje");
             System.out.println("3.- Salir");
-
-            System.out.print("Por favor ingrese una opción: ");
-
+            System.out.print("Por favor ingrese una opción: "); 
             opcion_elegida = scanner.nextLine();
             System.out.print("La opcion escogida por el usuario es: " + opcion_elegida + "\n");
 
@@ -27,7 +25,7 @@ public class Main {//
                     System.out.println("CREACION DE PERSONAJE");
 
                     System.out.println("¿Como llamaras a tu heroe?");
-                    personaje_jugador.nombre = scanner.nextLine();
+                    personaje_jugador.setNombre(scanner.nextLine());
 
                     System.out.println("¿Cual es el apellido de tu héroe?");
                     personaje_jugador.apellido = scanner.nextLine();
@@ -37,12 +35,17 @@ public class Main {//
                     //personaje_jugador.vida = Integer.parseInt(scanner.nextLine());
                     personaje_jugador.setearVida(Integer.parseInt(scanner.nextLine()));
 
+                    System.out.println("Asignarle la edad al personaje: ");
+                    personaje_jugador.ingresarEdad(Integer.parseInt(scanner.nextLine()));
+
                     break;
                 case "2":
                     System.out.println("VER PERSONAJE");
-                    System.out.println("Nombre: " + personaje_jugador.nombre);
+                    System.out.println("Nombre: " + personaje_jugador.getNombre());
                     System.out.println("Apellido: " + personaje_jugador.apellido);
                     System.out.println("Vida: " + personaje_jugador.verVida());
+                    System.out.println("¿Se encuentra vivo? " + personaje_jugador.esta_vivo);
+                    System.out.println("Edad: " + personaje_jugador.obtenerEdad());
                     break;
                 case "3":
                     System.out.println("GRACIAS POR JUGAR");
