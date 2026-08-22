@@ -28,7 +28,7 @@ public class Main {//
                     personaje_jugador.setNombre(scanner.nextLine());
 
                     System.out.println("¿Cual es el apellido de tu héroe?");
-                    personaje_jugador.apellido = scanner.nextLine();
+                    personaje_jugador.setApellido(scanner.nextLine());
                     
                     System.out.println("Indique la vida del heroe: ");
                     //ya no lo haremos asi porque es inseguro
@@ -42,7 +42,7 @@ public class Main {//
                 case "2":
                     System.out.println("VER PERSONAJE");
                     System.out.println("Nombre: " + personaje_jugador.getNombre());
-                    System.out.println("Apellido: " + personaje_jugador.apellido);
+                    System.out.println("Apellido: " + personaje_jugador.getApellido());
                     System.out.println("Vida: " + personaje_jugador.verVida());
                     System.out.println("¿Se encuentra vivo? " + personaje_jugador.esta_vivo);
                     System.out.println("Edad: " + personaje_jugador.obtenerEdad());

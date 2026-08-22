@@ -1,6 +1,6 @@
 public class Personaje {
     private String nombre;
-    String apellido;
+    private String apellido;
     private int vida; //this
     boolean esta_vivo = true;
     private int edad;
@@ -35,17 +35,40 @@ public class Personaje {
 
     //tarea: encapsular: tonto, sopenco, conchudo, weon, pipi, caca
     public void setNombre(String nombre){
-        if (nombre == "tonto") {
-            this.nombre = "a";
-        } else {
-            this.nombre = nombre;
-        }
+        this.nombre = censurarPalabra(nombre);
     }
 
     public String getNombre(){
         return this.nombre;
     }
 
+    public void setApellido(String apellido){
+        this.apellido = censurarPalabra(apellido);
+    }
 
-    
+    public String getApellido(){
+        return this.apellido;
+    }
+
+    public String censurarPalabra(String palabra){
+        boolean prohibida = false;
+        switch (palabra) {
+            case "tonto":
+            case "sopenco":
+            case "conchudo":
+            case "weon":
+            case "pipi":
+            case "caca":
+                prohibida = true;
+                break;
+            default:
+                break;
+        }
+        if (prohibida) {
+            System.out.println("No puedes elegir esa palabra, está prohibida!!");
+            return "*".repeat(palabra.length());
+        } else {
+            return palabra;
+        }
+    }
 }
