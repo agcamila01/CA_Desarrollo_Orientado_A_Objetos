@@ -5,7 +5,7 @@ public class Personaje {
     boolean esta_vivo = true;
     private int edad;
 
-    //encapsulamiento: getters, setters.
+    //encapsulamiento: getters:obtener el valor de un atributo, setters:asignar valor.
 
     public void setearVida(int vida){
         //this.vida = vida; //poner this si tienen el mismo nombre
@@ -35,6 +35,9 @@ public class Personaje {
 
     //tarea: encapsular: tonto, sopenco, conchudo, weon, pipi, caca
     public void setNombre(String nombre){
+        if (nombre.length() < 1){
+            System.out.println("El nombre del personaje no puede quedar vacio");
+        }
         this.nombre = censurarPalabra(nombre);
     }
 
@@ -51,6 +54,8 @@ public class Personaje {
     }
 
     public String censurarPalabra(String palabra){
+        // if (nombre.equals("palabra"));
+        palabra = palabra.toLowerCase();
         boolean prohibida = false;
         switch (palabra) {
             case "tonto":
