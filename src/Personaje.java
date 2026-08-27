@@ -4,8 +4,16 @@ public class Personaje {
     private int vida; //this
     boolean esta_vivo = true;
     private int edad;
+    private String tipoPersonaje;
 
     //encapsulamiento: getters:obtener el valor de un atributo, setters:asignar valor.
+    public Personaje(){
+        this.tipoPersonaje = "Sin categoria";
+    }
+
+    public Personaje(String tipoPersonaje){
+        this.tipoPersonaje = tipoPersonaje;
+    }
 
     public void setearVida(int vida){
         //this.vida = vida; //poner this si tienen el mismo nombre
@@ -53,6 +61,14 @@ public class Personaje {
         return this.apellido;
     }
 
+    public void setTipoPersonaje(String tipoPersonaje){
+        this.tipoPersonaje = tipoPersonaje;
+    }
+
+    public String getTipo(){
+        return this.tipoPersonaje;
+    }
+
     public String censurarPalabra(String palabra){
         // if (nombre.equals("palabra"));
         palabra = palabra.toLowerCase();
@@ -76,4 +92,5 @@ public class Personaje {
             return palabra;
         }
     }
+    
 }

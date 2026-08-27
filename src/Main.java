@@ -6,11 +6,10 @@ public class Main {//
     }
 
     static void mostrarMenu() {
-        
         String opcion_elegida;
         Scanner scanner = new Scanner(System.in);
         boolean iniciar_menu = true;
-        Personaje personaje_jugador = elegirPersonaje(scanner);
+        Personaje personaje_jugador = null;
         System.out.println("***** BIENVENIDOS AL MUNDO DE WESTEROS *****");
 
         while (iniciar_menu) {
@@ -23,10 +22,14 @@ public class Main {//
 
             switch (opcion_elegida) {
                 case "1":
-                    crearPersonaje(personaje_jugador, scanner);
+                    personaje_jugador = crearPersonaje(scanner);
                     break;
                 case "2":
-                    verDatosPersonaje(personaje_jugador);
+                    if (personaje_jugador != null){
+                        verDatosPersonaje(personaje_jugador);
+                    } else {
+                        System.out.println("No hay personajes registrados");
+                    }
                     break;
                 case "3":
                     System.out.println("GRACIAS POR JUGAR");
@@ -39,62 +42,74 @@ public class Main {//
         }
     }
 
-    static void crearPersonaje(Personaje personaje_jugador, Scanner scanner) {
+    static Personaje crearPersonaje(Scanner scanner) {
         System.out.println("CREACION DE PERSONAJE");
+        System.out.println("Elije un personaje: ");
+        System.out.println("1. Hacker");
+        System.out.println("2. Programador");
+        System.out.println("3. GameDev");
+        System.out.println("4. Ciberseguridad");
+        System.out.println("5. Sin categoria");
+        System.out.println("Selecciona una opcion (1/2/3/4/5): ");
 
-        System.out.println("¿Como llamaras a tu heroe?");
-        String nombre_sin_validar = scanner.nextLine();
-        boolean bandera = true;
-        while (bandera) {
-            if (nombre_sin_validar.length() < 1) {
-                System.out.println("Ingrese un nombre valido");
-                nombre_sin_validar = scanner.nextLine();
-            } else {
-                bandera = false;
-            }
+        String opcionTipoPersonaje = scanner.nextLine();
+        Personaje nuevoPersonaje;
+
+        switch (opcionTipoPersonaje) {
+            case "1":
+                nuevoPersonaje = new Hacker();
+                System.out.print("Has seleccionado: Hacker");
+                break;
+            case "2":
+                nuevoPersonaje = new Programador();
+                System.out.print("Has seleccionado: Programador");
+                break;
+            case "3":
+                nuevoPersonaje = new GameDev();
+                System.out.print("Has seleccionado: GameDev");
+                break;
+            case "4":
+                nuevoPersonaje = new Ciberseguridad();
+                System.out.print("Has seleccionado: Ciberseguridad");
+                break;
+            default:
+                nuevoPersonaje = new Personaje();
+                System.out.println("Has seleccionado: SIN CATEGORIA");
+                break;
         }
-        personaje_jugador.setNombre(nombre_sin_validar);
+
+        //atributos comunes
+        System.out.println("¿Como llamaras a tu heroe?");
+        String nombreSinValidar = scanner.nextLine();
+        while (nombreSinValidar.length() < 1){
+            System.out.println("Ingrese un nombre valido");
+            nombreSinValidar = scanner.nextLine();
+        }
+        nuevoPersonaje.setNombre(nombreSinValidar);
+
         System.out.println("¿Cual es el apellido de tu héroe?");
-        personaje_jugador.setApellido(scanner.nextLine());
+        nuevoPersonaje.setApellido(scanner.nextLine());
 
         System.out.println("Indique la vida del heroe: ");
         // ya no lo haremos asi porque es inseguro
         // personaje_jugador.vida = Integer.parseInt(scanner.nextLine());
-        personaje_jugador.setearVida(Integer.parseInt(scanner.nextLine()));
+        nuevoPersonaje.setearVida(Integer.parseInt(scanner.nextLine()));
 
         System.out.println("Asignarle la edad al personaje: ");
-        personaje_jugador.ingresarEdad(Integer.parseInt(scanner.nextLine()));
+        nuevoPersonaje.ingresarEdad(Integer.parseInt(scanner.nextLine()));
+
+        System.out.println("PERSONAJE CREADO");
+        return nuevoPersonaje;
 
     }
 
     static void verDatosPersonaje(Personaje personaje_jugador) {
         System.out.println("VER PERSONAJE");
+        System.out.println("Tipo: " + personaje_jugador.getTipo());
         System.out.println("Nombre: " + personaje_jugador.getNombre());
         System.out.println("Apellido: " + personaje_jugador.getApellido());
         System.out.println("Vida: " + personaje_jugador.verVida());
         System.out.println("¿Se encuentra vivo? " + personaje_jugador.esta_vivo);
         System.out.println("Edad: " + personaje_jugador.obtenerEdad());
-    }
-
-    static Personaje elegirPersonaje(Scanner scanner){
-        System.out.println("¿Que personaje quieres crear?");
-        System.out.println("-Hacker\n-Programador\n-GameDev\n-Otro");
-        String eleccion_personaje = scanner.nextLine();
-        eleccion_personaje = eleccion_personaje.toLowerCase();
-        switch (eleccion_personaje) {
-            case "hacker":
-                Hacker hacker1 = new Hacker();
-                return hacker1;
-            case "programador":
-                Programador programador1 = new Programador();
-                return programador1;
-            case "gamedev":
-                GameDev gameDev = new GameDev();
-                return gameDev;
-            default:
-                System.out.println("Se creará un personaje sin categoria");
-                Personaje personaje = new Personaje();
-                return personaje;
-        }
     }
 }
