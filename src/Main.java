@@ -1,136 +1,53 @@
+import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Main {
     public static void main(String[] args) {
-        mostrarMenu();
-    }
-
-    static void mostrarMenu() {
-        String opcion_elegida;
         Scanner scanner = new Scanner(System.in);
-        boolean iniciar_menu = true;
-        Personaje personaje_jugador = null;
-        System.out.println("***** BIENVENIDOS AL MUNDO DE WESTEROS *****");
+        ArrayList<Publicacion> feed = new ArrayList<>();
+        boolean ejecutando = true;
 
-        while (iniciar_menu) {
-            System.out.println("1.- Crear personaje");
-            System.out.println("2.- Ver personaje");
-            System.out.println("3.- Testeando cosas");
-            System.out.println("4.- Salir");
+        while (ejecutando) {
+            System.out.println("\n=== INSTAGRAM CONSOLE APP ===");
+            System.out.println("1. Crear publicación");
+            System.out.println("2. Ver Feed completo (Polimorfismo)");
+            System.out.println("3. Dar Like a una publicación");
+            System.out.println("4. Salir");
+            System.out.print("Seleccione una opción: ");
 
-            System.out.print("Por favor ingrese una opción: ");
-            opcion_elegida = scanner.nextLine();
-            System.out.print("La opcion escogida por el usuario es: " + opcion_elegida + "\n");
+            String opcion = scanner.nextLine().trim();
 
-            switch (opcion_elegida) {
+            switch (opcion) {
                 case "1":
-                    personaje_jugador = crearPersonaje(scanner);
+                    crearPublicacion(scanner, feed);
                     break;
                 case "2":
-                    if (personaje_jugador != null){
-                        verDatosPersonaje(personaje_jugador);
-                    } else {
-                        System.out.println("No hay personajes registrados");
-                    }
+                    mostrarFeed(feed);
                     break;
                 case "3":
-                    testeandoCositas();
+                    darLikePublicacion(scanner, feed);
                     break;
                 case "4":
-                    System.out.println("GRACIAS POR JUGAR");
-                    iniciar_menu = false;
+                    System.out.println("¡Hasta pronto! 🛸");
+                    ejecutando = false;
                     break;
                 default:
-                    System.out.println("POR FAVOR INGRESE UNA DE LAS OPCIONES PERMITIDAS");
+                    System.out.println("Opción no válida. Intente nuevamente.");
                     break;
             }
         }
     }
 
-    static void testeandoCositas(){
-        System.out.println("Este es el hacker");
-        Personaje hacker = new Hacker(); //solo puede usar metodos de Personaje
-        hacker.trabajar();
-
-        //hacker.setNombre("sopenco");
-        //System.out.println(hacker.getNombre());
-
-        System.out.println("\nEste es el gamedev");
-        Personaje gamedev = new GameDev();
-        gamedev.trabajar();
-
-        System.out.println("\nEste es el programador");
-        Personaje programador = new Programador();
-        programador.trabajar();
-    }
-
-    static Personaje crearPersonaje(Scanner scanner) {
-        System.out.println("CREACION DE PERSONAJE");
-        System.out.println("Elije un personaje: ");
-        System.out.println("1. Hacker");
-        System.out.println("2. Programador");
-        System.out.println("3. GameDev");
-        System.out.println("4. Ciberseguridad");
-        System.out.println("5. Sin categoria");
-        System.out.println("Selecciona una opcion (1/2/3/4/5): ");
-
-        String opcionTipoPersonaje = scanner.nextLine();
-        Personaje nuevoPersonaje;
-
-        switch (opcionTipoPersonaje) {
-            case "1":
-                nuevoPersonaje = new Hacker();
-                System.out.print("Has seleccionado: Hacker");
-                break;
-            case "2":
-                nuevoPersonaje = new Programador();
-                System.out.print("Has seleccionado: Programador");
-                break;
-            case "3":
-                nuevoPersonaje = new GameDev();
-                System.out.print("Has seleccionado: GameDev");
-                break;
-            case "4":
-                nuevoPersonaje = new Ciberseguridad();
-                System.out.print("Has seleccionado: Ciberseguridad");
-                break;
-            default:
-                nuevoPersonaje = new Personaje();
-                System.out.println("Has seleccionado: SIN CATEGORIA");
-                break;
+    private static void mostrarFeed(ArrayList<Publicacion> feed) {
+        if (feed.isEmpty()) {
+            System.out.println("El feed está vacío. ¡Crea una publicación primero!");
+            return;
         }
-
-        //atributos comunes
-        System.out.println("¿Como llamaras a tu heroe?");
-        String nombreSinValidar = scanner.nextLine();
-        while (nombreSinValidar.length() < 1){
-            System.out.println("Ingrese un nombre valido");
-            nombreSinValidar = scanner.nextLine();
+        System.out.println("\n--- FEED DE PUBLICACIONES ---");
+        // POLIMORFISMO: Una sola llamada a método padre ejecuta la versión del hijo correspondiente
+        for (Publicacion pub : feed) {
+            pub.mostrarDetalle();
+            System.out.println("---------------------------");
         }
-        nuevoPersonaje.setNombre(nombreSinValidar);
-
-        System.out.println("¿Cual es el apellido de tu héroe?");
-        nuevoPersonaje.setApellido(scanner.nextLine());
-
-        System.out.println("Indique la vida del heroe: ");
-        // ya no lo haremos asi porque es inseguro
-        // personaje_jugador.vida = Integer.parseInt(scanner.nextLine());
-        nuevoPersonaje.setearVida(Integer.parseInt(scanner.nextLine()));
-
-        System.out.println("Asignarle la edad al personaje: ");
-        nuevoPersonaje.ingresarEdad(Integer.parseInt(scanner.nextLine()));
-
-        System.out.println("PERSONAJE CREADO");
-        return nuevoPersonaje;
-    }
-
-    static void verDatosPersonaje(Personaje personaje_jugador) {
-        System.out.println("VER PERSONAJE");
-        System.out.println("Tipo: " + personaje_jugador.getTipo());
-        System.out.println("Nombre: " + personaje_jugador.getNombre());
-        System.out.println("Apellido: " + personaje_jugador.getApellido());
-        System.out.println("Vida: " + personaje_jugador.verVida());
-        System.out.println("¿Se encuentra vivo? " + personaje_jugador.esta_vivo);
-        System.out.println("Edad: " + personaje_jugador.obtenerEdad());
     }
 }
