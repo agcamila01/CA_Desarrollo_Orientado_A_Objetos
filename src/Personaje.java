@@ -92,5 +92,9 @@ public class Personaje {
             return palabra;
         }
     }
+
+    public void trabajar(){
+        System.out.println("Chambeando");
+    }
     
 }

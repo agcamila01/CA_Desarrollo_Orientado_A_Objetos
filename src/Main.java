@@ -1,6 +1,6 @@
 import java.util.Scanner;
 
-public class Main {//
+public class Main {
     public static void main(String[] args) {
         mostrarMenu();
     }
@@ -15,7 +15,9 @@ public class Main {//
         while (iniciar_menu) {
             System.out.println("1.- Crear personaje");
             System.out.println("2.- Ver personaje");
-            System.out.println("3.- Salir");
+            System.out.println("3.- Testeando cosas");
+            System.out.println("4.- Salir");
+
             System.out.print("Por favor ingrese una opción: ");
             opcion_elegida = scanner.nextLine();
             System.out.print("La opcion escogida por el usuario es: " + opcion_elegida + "\n");
@@ -32,6 +34,9 @@ public class Main {//
                     }
                     break;
                 case "3":
+                    testeandoCositas();
+                    break;
+                case "4":
                     System.out.println("GRACIAS POR JUGAR");
                     iniciar_menu = false;
                     break;
@@ -40,6 +45,23 @@ public class Main {//
                     break;
             }
         }
+    }
+
+    static void testeandoCositas(){
+        System.out.println("Este es el hacker");
+        Personaje hacker = new Hacker(); //solo puede usar metodos de Personaje
+        hacker.trabajar();
+
+        //hacker.setNombre("sopenco");
+        //System.out.println(hacker.getNombre());
+
+        System.out.println("\nEste es el gamedev");
+        Personaje gamedev = new GameDev();
+        gamedev.trabajar();
+
+        System.out.println("\nEste es el programador");
+        Personaje programador = new Programador();
+        programador.trabajar();
     }
 
     static Personaje crearPersonaje(Scanner scanner) {
@@ -100,7 +122,6 @@ public class Main {//
 
         System.out.println("PERSONAJE CREADO");
         return nuevoPersonaje;
-
     }
 
     static void verDatosPersonaje(Personaje personaje_jugador) {
