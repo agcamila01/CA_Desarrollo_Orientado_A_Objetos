@@ -19,13 +19,13 @@ public class Main {
 
             switch (opcion) {
                 case "1":
-                    crearPublicacion(scanner, feed);
+                    //crearPublicacion(scanner, feed);
                     break;
                 case "2":
                     mostrarFeed(feed);
                     break;
                 case "3":
-                    darLikePublicacion(scanner, feed);
+                    //darLikePublicacion(scanner, feed);
                     break;
                 case "4":
                     System.out.println("¡Hasta pronto! 🛸");

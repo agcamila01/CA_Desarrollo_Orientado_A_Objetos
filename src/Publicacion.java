@@ -1,11 +1,11 @@
 public class Publicacion {
     private String id;
-    private String autor;
+    private Autor autor;
     private String fechaCreacion;
     private int likes;
     protected boolean estaActiva;
 
-    public Publicacion(String id, String autor) {
+    public Publicacion(String id, Autor autor) {
         this.id = id;
         this.autor = autor;
     }
