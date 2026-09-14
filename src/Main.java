@@ -22,7 +22,7 @@ public class Main {
                     //crearPublicacion(scanner, feed);
                     break;
                 case "2":
-                    mostrarFeed(feed);
+                    //mostrarFeed(feed);
                     break;
                 case "3":
                     //darLikePublicacion(scanner, feed);
