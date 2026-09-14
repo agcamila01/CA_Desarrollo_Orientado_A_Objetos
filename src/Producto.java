@@ -28,7 +28,7 @@ public abstract class Producto {
     public abstract int calcularPrecioFinal();
 
     public String mostrarInfo() {
-        return "Juego: " + this.nombre + " tiene un precio base de: " + this.precioBase + ". Stock: " + this.stock;
+        return "Juego: " + this.nombre + " Precio base: $" + this.precioBase + ". Stock: " + this.stock;
     }
 
 }
