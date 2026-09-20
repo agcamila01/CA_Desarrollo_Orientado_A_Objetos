@@ -8,12 +8,12 @@ import java.time.LocalDate;
 
 public abstract class Publicacion {
     private String id;
-    private String autor;
+    private Autor autor;
     private String fechaCreacion;
     private int likes;
     protected boolean estaActiva;
 
-    public Publicacion(String id, String autor) {
+    public Publicacion(String id, Autor autor) {
         this.id = id;
         this.autor = autor;
         this.fechaCreacion = LocalDate.now().toString();
@@ -28,17 +28,6 @@ public abstract class Publicacion {
 
     public abstract void mostrarDetalle();
 
-    public boolean validarAutor(String autor) {
-        boolean validado = false;
-        if (autor == null) {
-            System.out.println("El autor no puede ser null");
-        } else if (autor.trim().length() < 2) {
-            System.out.println("El autor no puede estar vacío o tener menos de 2 caracteres");
-        } else {
-            validado = true;
-        }
-        return validado;
-    }
 
     public String getId(){
         return this.id;
@@ -52,12 +41,14 @@ public abstract class Publicacion {
         return this.estaActiva;
     }
 
-    public String getAutor(){
+    public Autor getAutor(){
         return this.autor;
     }
 
     public String getFechaCreacion(){
         return this.fechaCreacion;
     }
+
+    
 
 }

@@ -2,16 +2,25 @@ public class Reel extends Publicacion {
     private int duracionSegundos;
     private String audioNombre;
     private int reproducciones;
+    private static int contadorReel = 1;
 
-    public Reel(String id, String autor, int duracionSegundos, String audioNombre) {
-        super(id, autor);
+    public Reel(Autor autor, int duracionSegundos, String audioNombre) {
+        super("RE-" + contadorReel, autor);
+        contadorReel++;
         setSegundos(duracionSegundos);
         setAudioNombre(audioNombre);
     }
 
     @Override 
     public void mostrarDetalle(){
-        System.out.println("Detalles del Reel");
+        System.out.println("=== " + this.getId() + " ===");
+        System.out.println("Autor: " + this.getAutor().getNombre());
+        System.out.println("Duracion: " + this.getSegundos() + " segundos");
+        System.out.println("Nombre del audio: " + this.getAudioNombre());
+        System.out.println("Reproducciones: " + this.getReproducciones());
+        System.out.println("Me gusta: " + this.getLikes());
+        System.out.println("Fecha de Publicación: " + this.getFechaCreacion());
+        System.out.println("===========================");
     }
 
     public void reproducir(){
@@ -33,7 +42,7 @@ public class Reel extends Publicacion {
 
     public void setAudioNombre(String audioNombre){
         if (audioNombre.trim().length() <= 0) {
-            this.audioNombre = "Audio original de " + getAutor();
+            this.audioNombre = "Audio original de " + getAutor().getNombre();
         } else {
             this.audioNombre = audioNombre;
         }

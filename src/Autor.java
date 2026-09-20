@@ -1,17 +1,27 @@
 import java.util.ArrayList;
 
 public class Autor {
-    private int id;
+    private String id;
     private String nombre;
     private ArrayList <Autor> autores = new ArrayList<>();
+    private static int contadorAutor = 1;
 
-    public Autor(int id, String nombre) {
-        this.id = id;
-        this.nombre = nombre;
+    public Autor(String nombre) {
+        this.id = "AU-" + contadorAutor++;
+        this.setNombre(nombre);
     }
 
-    public void setNombre(String nombre) {
-        this.nombre = nombre;
+    public String getId() {
+        return this.id;
+    }
+
+    public void setNombre(String nombre) { //poner el bucle cuando se pide el dato en main
+        if (validarNombreAutor(nombre)) {
+            this.nombre = nombre;
+        } else {
+            this.nombre = "####";
+        }
+        
     }
 
     public String getNombre() {
@@ -31,6 +41,18 @@ public class Autor {
 
     public ArrayList<Autor> getAutores() {
         return this.autores;
+    }
+
+    public static boolean validarNombreAutor(String nombreAutor) { //static -> funciona sin crear instancia
+        if (nombreAutor == null) {
+            System.out.println("El autor no puede ser null");
+            return false;
+        }
+        if (nombreAutor.trim().length() < 2) {
+            System.out.println("El autor no puede estar vacío o tener menos de 2 caracteres");
+            return false;
+        }
+        return true;
     }
 
 }
