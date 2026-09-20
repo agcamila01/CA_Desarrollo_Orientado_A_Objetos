@@ -1,5 +1,7 @@
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Scanner;
+import java.util.List;
 
 public class Main {
     public static void main(String[] args) {
@@ -8,49 +10,49 @@ public class Main {
         boolean ejecutando = true;
 
         while (ejecutando) {
-            System.out.println("\n=== INSTAGRAM CONSOLE APP ===");
-            System.out.println("1. Crear publicación");
-            System.out.println("2. Ver Feed completo (Polimorfismo)");
-            System.out.println("3. Dar Like a una publicación");
-            System.out.println("4. Filtrar por publicación");
-            System.out.println("9. Salir");
+            try {
+                System.out.println("\n=== INSTAGRAM CONSOLE APP ===");
+                System.out.println("1. Crear publicación");
+                System.out.println("2. Ver Feed completo");
+                System.out.println("3. Dar Like a una publicación");
+                System.out.println("4. Filtrar por publicación");
+                System.out.println("5. Buscar publicación por ID");
+                System.out.println("6. Estadísticas del Feed");
+                System.out.println("9. Salir");
 
-            String opcion = solicitaString(scanner, "Seleccione una opción: ");
+                String opcion = solicitaString(scanner, "Seleccione una opción: ");
 
-            switch (opcion) {
-                case "1":
-                    crearPublicacion(scanner, feed);
-                    break;
-                case "2":
-                    mostrarFeed(feed);
-                    break;
-                case "3":
-                    darLikePublicacion(scanner, feed);
-                    break;
-                case "4":
-                    filtrarPublicaciones(scanner, feed);
-                    break;
-                case "9":
-                    System.out.println("¡Hasta pronto!");
-                    ejecutando = false;
-                    break;
-                default:
-                    System.out.println("Opción no válida. Intente nuevamente.");
-                    break;
+                switch (opcion) {
+                    case "1":
+                        crearPublicacion(scanner, feed);
+                        break;
+                    case "2":
+                        mostrarFeed(feed);
+                        break;
+                    case "3":
+                        darLikePublicacion(scanner, feed);
+                        break;
+                    case "4":
+                        filtrarPublicaciones(scanner, feed);
+                        break;
+                    case "5":
+                        buscarPorId(scanner, feed);
+                        break;
+                    case "6":
+                        mostrarEstadisticas(feed);
+                        break;
+                    case "9":
+                        System.out.println("¡Hasta pronto!");
+                        ejecutando = false;
+                        break;
+                    default:
+                        System.out.println("Opción no válida. Intente nuevamente.");
+                        break;
+                }
+            } catch (Exception e) {
+                System.out.println("Error inesperado: " + e.getMessage());
+                System.out.println("El programa continúa funcionando.");
             }
-        }
-    }
-
-    private static void mostrarFeed(ArrayList<Publicacion> feed) {
-        if (feed.isEmpty()) {
-            System.out.println("El feed está vacío. ¡Crea una publicación primero!");
-            return;
-        }
-        System.out.println("\n--- FEED DE PUBLICACIONES ---");
-        // POLIMORFISMO: Una sola llamada a método padre ejecuta la versión del hijo correspondiente
-        for (Publicacion pub : feed) {
-            pub.mostrarDetalle();
-            System.out.println("---------------------------");
         }
     }
 
@@ -66,9 +68,21 @@ public class Main {
 
             String opcionMenuPublicacion = solicitaString(scanner, "Elija una opción: ");
             
+            if (opcionMenuPublicacion.equals("9")) {
+                menuPublicacion = false;
+                break;
+            }
+
+            if (!List.of("1","2","3").contains(opcionMenuPublicacion)) {
+                System.out.println("Opcion Inválida. Intente nuevamente.");
+                continue;
+            }
+
+            //datos comunes/del padre
+            Autor autor = solicitaAutor(scanner);
+            
             switch (opcionMenuPublicacion) {
                 case "1":
-                    Autor autorHistoria = solicitaAutor(scanner);
                     boolean mejoresAmigos;
                     System.out.print("-- Visibilidad -- \n1) Mejores Amigos \n2) Todo el mundo\n");
                     String opcionMejoresAmigos = solicitaString(scanner, "Ingrese su opción: ");
@@ -83,23 +97,21 @@ public class Main {
                             mejoresAmigos = false;
                             break;
                     }
-                    Historia historia = new Historia(autorHistoria, mejoresAmigos);
+                    Historia historia = new Historia(autor, mejoresAmigos);
                     System.out.println("Historia Publicada");
                     feed.add(historia);
                     break;
                 case "2":
-                    Autor autorReel = solicitaAutor(scanner);
                     int segundos = validarEntero(scanner, "Duración del reel (seg): ");
                     String audio = solicitaString(scanner, "Nombre del audio del reel: ");
-                    Reel reel = new Reel(autorReel, segundos, audio);
+                    Reel reel = new Reel(autor, segundos, audio);
                     System.out.println("Reel Publicado");
                     feed.add(reel);
                     break;
                 case "3":
-                    Autor autorPost = solicitaAutor(scanner);
                     String pieFoto =  solicitaString(scanner, "Ingrese el pie de foto: ");
                     String ubicacion = solicitaString(scanner, "Ingrese ubicación: ");
-                    Post post = new Post(autorPost, pieFoto, ubicacion);
+                    Post post = new Post(autor, pieFoto, ubicacion);
                     System.out.println("Post Publicado");
                     feed.add(post);
                     break;
@@ -110,6 +122,19 @@ public class Main {
                     System.out.println("Opcion Inválida. Intente nuevamente.");
                     break;
             }
+        }
+    }
+
+    private static void mostrarFeed(ArrayList<Publicacion> feed) {
+        if (feed.isEmpty()) {
+            System.out.println("El feed está vacío. ¡Crea una publicación primero!");
+            return;
+        }
+        System.out.println("\n--- FEED DE PUBLICACIONES ---");
+        // POLIMORFISMO: Una sola llamada a método padre ejecuta la versión del hijo correspondiente
+        for (Publicacion pub : feed) {
+            pub.mostrarDetalle();
+            System.out.println("---------------------------");
         }
     }
 
@@ -131,7 +156,7 @@ public class Main {
                 return;//también se puede hacer con un bool o contador
             }
         }
-        System.out.println("No se encontró ninguna publicación con ese id.");
+        System.out.println("No se encontró ninguna publicación con id: " + idPublicacion);
     }
 
     static void filtrarPublicaciones(Scanner scanner, ArrayList<Publicacion> feed) {
@@ -199,6 +224,64 @@ public class Main {
                     System.out.println("Elija una opción válida.");
                     break;
             }
+        }
+    }
+
+    private static void buscarPorId(Scanner scanner, ArrayList<Publicacion> feed) {
+        if (feed.isEmpty()) {
+            System.out.println("El feed está vacío.");
+            return;
+        }
+
+        System.out.print("Ingrese el ID a buscar: ");
+        String idBuscado = scanner.nextLine().trim();
+
+        // Búsqueda lineal
+        Publicacion encontrada = null;
+        for (Publicacion pub : feed) {
+            if (pub.getId().equals(idBuscado)) {
+                encontrada = pub;
+                break;
+            }
+        }
+
+        if (encontrada != null) {
+            System.out.println("\nPublicación encontrada:");
+            encontrada.mostrarDetalle();
+        } else {
+            System.out.println("No se encontró una publicación con ID: " + idBuscado);
+        }
+    }
+
+    private static void mostrarEstadisticas(ArrayList<Publicacion> feed){
+        if (feed.isEmpty()) {
+            System.out.println("El feed está vacío.");
+            return;
+        }
+        // Contar publicaciones por tipo usando HashMap
+        HashMap<String, Integer> conteo = new HashMap<>();
+        int totalLikes = 0;
+
+        for (Publicacion pub : feed) {
+            // Obtener el nombre de la clase real del objeto
+            String tipo = pub.getClass().getSimpleName(); // "Historia", "Reel" o "Post"
+            conteo.put(tipo, conteo.getOrDefault(tipo, 0) + 1);
+            totalLikes += pub.getLikes();
+        }
+
+        // Mostrar resultados
+        System.out.println("\n--- ESTADÍSTICAS DEL FEED ---");
+        System.out.println("Total de publicaciones: " + feed.size());
+        System.out.println("Total de likes: " + totalLikes);
+
+        if (!feed.isEmpty()) {
+            double promedio = (double) totalLikes / feed.size();
+            System.out.printf("Promedio de likes: %.1f%n", promedio);
+        }
+
+        System.out.println("\nPor tipo:");
+        for (String tipo : conteo.keySet()) {
+            System.out.println("  " + tipo + ": " + conteo.get(tipo));
         }
     }
 
