@@ -23,7 +23,7 @@ public class ProductoDigital extends Producto {
 
     @Override
     public String mostrarInfo() {
-        return super.mostrarInfo() + ". Descuento: " + this.descuento + "%" + ". Plataforma: " + this.plataforma + ". Precio Total: $" + this.calcularPrecioFinal();
+        return super.mostrarInfo() + "\nDescuento: " + this.descuento + "%" + "\nPlataforma: " + this.plataforma + "\nPrecio Total: $" + this.calcularPrecioFinal();
     }
 
 }
