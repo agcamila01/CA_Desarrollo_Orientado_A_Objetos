@@ -16,6 +16,7 @@
 
 # Package Files #
 *.jar
+!.mvn/wrapper/maven-wrapper.jar
 *.war
 *.nar
 *.ear
@@ -76,12 +77,7 @@ Temporary Items
 *.icloud
 
 ### VisualStudioCode ###
-.vscode/*
-!.vscode/settings.json
-!.vscode/tasks.json
-!.vscode/launch.json
-!.vscode/extensions.json
-!.vscode/*.code-snippets
+.vscode/
 
 # Local History for Visual Studio Code
 .history/
@@ -119,5 +115,15 @@ $RECYCLE.BIN/
 
 # Windows shortcuts
 *.lnk
+
+### Maven ###
+target/
+
+### IDEs ###
+.idea/
+*.iml
+.classpath
+.project
+.settings/
 
 # End of https://www.toptal.com/developers/gitignore/api/windows,linux,macos,visualstudiocode,java
