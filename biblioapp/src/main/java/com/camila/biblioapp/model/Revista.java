@@ -1,15 +1,22 @@
 package com.camila.biblioapp.model;
 
-public class Revista extends Material{
-    private String mesPublicacion;
+public class Revista extends Material {
 
-    public Revista(String titulo, String autor, int cantidadDisponible, String mesPublicacion) {
+    private String mesPublicacion;
+    private String periodicidad;
+
+    public Revista(String titulo, String autor, int cantidadDisponible, String mesPublicacion, String periodicidad) {
         super(titulo, autor, cantidadDisponible);
         this.mesPublicacion = mesPublicacion;
+        this.periodicidad = periodicidad;
     }
 
-    public String getMesPublicacion(){
+    public String getMesPublicacion() {
         return mesPublicacion;
+    }
+
+    public String getPeriodicidad() {
+        return periodicidad;
     }
 
     @Override
@@ -19,6 +26,6 @@ public class Revista extends Material{
 
     @Override
     public String mostrarInfo() {
-        return "[REVISTA]\n" + super.mostrarInfo() + "\nMes Publicación: " + this.mesPublicacion;
+        return "[REVISTA]\n" + super.mostrarInfo() + "\nMes de publicación: " + mesPublicacion + "\nPeriodicidad: " + periodicidad;
     }
 }

@@ -20,18 +20,35 @@
       "numPaginas": 96
     }
   ],
+
   "revistas": [
     {
       "titulo": "National Geographic",
       "autor": "National Geographic Society",
       "cantidadDisponible": 2,
-      "mesPublicacion": "Octubre"
+      "mesPublicacion": "Octubre",
+      "periodicidad": "Mensual"
     },
     {
       "titulo": "Muy Interesante",
       "autor": "Equipo editorial",
       "cantidadDisponible": 1,
-      "mesPublicacion": "Octubre"
+      "mesPublicacion": "Octubre",
+      "periodicidad": "Mensual"
+    },
+    {
+      "titulo": "Ciencia Hoy",
+      "autor": "Equipo editorial",
+      "cantidadDisponible": 4,
+      "mesPublicacion": "Octubre",
+      "periodicidad": "Bimestral"
+    },
+    {
+      "titulo": "Actualidad Deportiva",
+      "autor": "Equipo editorial",
+      "cantidadDisponible": 3,
+      "mesPublicacion": "Octubre",
+      "periodicidad": "Semanal"
     }
   ]
 }
