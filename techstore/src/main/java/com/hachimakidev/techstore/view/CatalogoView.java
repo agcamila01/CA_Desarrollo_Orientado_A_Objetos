@@ -81,7 +81,10 @@ public class CatalogoView {
     }
 
     public VBox contenedorDispositivos(){
-        return new VBox(15, tablaDispositivos, formularioNuevoDispositivo());
+        Label lblTituloTabla = new Label("TechStore — Catálogo de Notebooks y Smartphones");
+        lblTituloTabla.setStyle("-fx-font-size: 20px; -fx-font-weight: bold;");
+
+        return new VBox(15, lblTituloTabla, tablaDispositivos, formularioNuevoDispositivo());
     }
 
     private VBox formularioNuevoDispositivo() {

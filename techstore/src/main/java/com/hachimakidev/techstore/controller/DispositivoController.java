@@ -40,7 +40,6 @@ public class DispositivoController {
         dispositivoManager.agregarDispositivo(dispositivoNuevo);
     }
 
-    
 }
 
 

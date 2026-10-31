@@ -87,5 +87,6 @@ public class DispositivoManager {
     public void agregarDispositivo(Dispositivo nuevo) {
         dispositivos.add(nuevo);
     }
+    
 }
 
